@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique Area Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #aaddd4, #4a5fbe);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            border: solid 2px black;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4a90e2;
+        }
+        select, input, button {
+            font-size: 16px;
+            margin: 10px 0;
+            padding: 10px;
+            width: 90%;
+            border: 2px solid #4a90e2;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #1c63ae;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #011830;
+
+        }
+        p {
+            font-size: 18px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Area Calculator</h1>
+        <label for="shape">Select Shape:</label>
+        <select id="shape" onchange="updateInputs()">
+            <option value="rectangle">Rectangle</option>
+            <option value="circle">Circle</option>
+        </select>
+
+        <div id="rectangleInputs">
+            <input type="number" id="length" placeholder="Enter Length">
+            <input type="number" id="width" placeholder="Enter Width">
+        </div>
+
+        <div id="circleInputs" style="display: none;">
+            <input type="number" id="radius" placeholder="Enter Radius">
+        </div>
+
+        <button onclick="calculateArea()">Calculate</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function updateInputs() {
+            const shape = document.getElementById('shape').value;
+            document.getElementById('rectangleInputs').style.display = shape === 'rectangle' ? 'block':'none';
+            document.getElementById('circleInputs').style.display = shape === 'circle' ? 'block':'none';
+        }
+
+        function calculateArea() {
+            const shape = document.getElementById('shape').value;
+            let area;
+
+            if (shape === 'rectangle') {
+                const length = parseFloat(document.getElementById('length').value);
+                const width = parseFloat(document.getElementById('width').value);
+                if (isNaN(length) || isNaN(width)) {
+                    alert("Please enter valid numbers for length and width.");
+                    return;
+                }
+                area = length * width;
+            } else if (shape === 'circle') {
+                const radius = parseFloat(document.getElementById('radius').value);
+                if (isNaN(radius)) {
+                    alert("Please enter a valid number for radius.");
+                    return;
+                }
+                area = Math.PI * radius * radius;
+            }
+
+            document.getElementById('result').textContent = `The area of the ${shape} is ${area.toFixed(2)}.`;
+        }
+    </script>
+</body>
+</html>
